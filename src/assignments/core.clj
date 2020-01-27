@@ -57,7 +57,7 @@
         (c/zero-aliases 5)
         ;;
         (c/zero-separated-palindrome [1 2])
-        (c/zero-separated-palindrome [:a])
+        ;(c/zero-separated-palindrome [:a])
         (c/zero-separated-palindrome [0]))))
 
 ; list fns are to be filled by you
@@ -70,6 +70,8 @@
         (l/map' inc [1 2 3])
         (l/map' + [1 2 3] [4 5 6])
         ;; fill the rest accordingly
+        (l/filter' (partial < 2) [1 2 3 4])
+        (l/filter' (partial > 5) [1 2 3 4 6 3])
         )))
 
 (defn -main [& args]

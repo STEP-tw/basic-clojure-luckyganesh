@@ -9,18 +9,16 @@
    :dont-use     '[map]
    :implemented? true}
   [f & colls]
-  (if (= 1 (count colls)) (loop [colls (first colls) result []]
-                            (if-not (empty? colls)
-                              (recur (rest colls)
-                                     (conj result (f (first colls))))
+  (if (= 1 (count colls)) (loop [coll (first colls) result []]
+                            (if-not (empty? coll)
+                              (recur (rest coll)
+                                     (conj result (f (first coll))))
                               result))
-                          (loop [colls colls
-                                 result []]
+                          (loop [colls colls result []]
                             (if-not (some empty? colls)
                               (recur (map' rest colls)
                                      (conj result (apply f (map' first colls))))
                               result))))
-
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
@@ -29,8 +27,16 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[filter]
-   :implemented? false}
-  [pred coll])
+   :implemented? true}
+  [pred coll]
+  (loop [coll coll result []]
+    (if-not (empty? coll)
+      (let [first-element (first coll)]
+        (recur (rest coll)
+               (if (pred first-element)
+                 (conj result first-element)
+                 result)))
+      result)))
 
 (defn reduce'
   "Implement your own multi-arity version of reduce
