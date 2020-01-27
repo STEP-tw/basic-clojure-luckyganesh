@@ -79,6 +79,10 @@
         (l/count' [1 2 3])
         (l/count' {:one 1 :two 2})
         (l/count' [1 \a "string" [1 2] {:foo :bar}])
+        ;;
+        (l/reverse' [1 2 3])
+        (l/reverse' {:one 1 :two 2})
+        (l/reverse' [1 \a "string" [1 2] {:foo :bar}])
         )))
 
 (defn -main [& args]

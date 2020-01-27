@@ -59,7 +59,7 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[count]
-   :implemented? false}
+   :implemented? true}
   ([coll] (loop [coll coll result 0]
             (if-not (empty? coll)
               (recur (rest coll) (inc result))
@@ -71,8 +71,8 @@
   {:level        :easy
    :use          '[reduce conj seqable? when]
    :dont-use     '[reverse]
-   :implemented? false}
-  ([coll]))
+   :implemented? true}
+  ([coll] (when (seqable? coll) (reduce' conj '() coll))))
 
 (defn every?'
   "Implement your own version of every? that checks if every
