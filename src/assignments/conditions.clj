@@ -91,7 +91,7 @@
   (order-in-words 2 3 4) => [:z-greater-than-x]"
   {:level        :easy
    :use          '[cond-> conj]
-   :implemented? false}
+   :implemented? true}
   [x y z]
   (cond-> []
           (> x y) (conj :x-greater-than-y)
@@ -110,8 +110,14 @@
   \"\"  -> :empty-string"
   {:level        :easy
    :use          '[case]
-   :implemented? false}
-  [zero-like-value])
+   :implemented? true}
+  [zero-like-value]
+  (case zero-like-value
+    0 :zero
+    ([] '()) :empty
+    #{} :empty-set
+    "" :empty-string
+    :not-zero))
 
 (defn zero-separated-palindrome
   "Given a sequence of numbers, increment the list
