@@ -25,3 +25,15 @@
     (is (= 2 (harishchandra 2))))
   (testing "should return 0 when input is 0"
     (is (zero? (harishchandra 0)))))
+
+(deftest yudishtira-test
+  (testing "should return true when input is true"
+    (is (yudishtira true)))
+  (testing "should return :ashwathama when input is false"
+    (is (= :ashwathama (yudishtira false))))
+  (testing "should return :ashwathama when input is nil"
+    (is (= :ashwathama (yudishtira nil))))
+  (testing "should return the value when it is not falsy value"
+    (is (= 2 (yudishtira 2))))
+  (testing "should return 0 when input is 0"
+    (is (zero? (yudishtira 0)))))
