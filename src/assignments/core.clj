@@ -72,6 +72,10 @@
         ;; fill the rest accordingly
         (l/filter' (partial < 2) [1 2 3 4])
         (l/filter' (partial > 5) [1 2 3 4 6 3])
+        ;;
+        (l/reduce' + [1 2 3 4])
+        (l/reduce' + 10 [1 2 3 4])
+        ;;
         )))
 
 (defn -main [& args]

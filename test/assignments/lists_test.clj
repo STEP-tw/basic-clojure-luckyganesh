@@ -17,3 +17,11 @@
     (is (=  [1 3] (filter' odd? [1 2 3 4]))))
   (testing "everything from a seq that is not nil"
     (is (= '(1 [] :a) (filter some? '(1 nil [] :a nil))))))
+
+(deftest reduce-test
+  (testing "+ without initial value"
+    (is (= 15 (reduce' + [1 2 3 4 5]))))
+  (testing "conj with initial value"
+    (is (= #{:a :c :b} (reduce' conj #{} [:a :b :c]))))
+  (testing "simple factorial"
+    (is (= 120 (reduce * (range 1 (inc 5)))))))
