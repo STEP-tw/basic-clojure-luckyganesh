@@ -60,7 +60,10 @@
    :use          '[loop recur]
    :dont-use     '[count]
    :implemented? false}
-  ([coll]))
+  ([coll] (loop [coll coll result 0]
+            (if-not (empty? coll)
+              (recur (rest coll) (inc result))
+              result))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.

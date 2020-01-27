@@ -25,3 +25,11 @@
     (is (= #{:a :c :b} (reduce' conj #{} [:a :b :c]))))
   (testing "simple factorial"
     (is (= 120 (reduce * (range 1 (inc 5)))))))
+
+(deftest count-test
+  (testing "with empty list"
+    (is (zero? (count' []))))
+  (testing "with integer elements in list"
+    (is (= 4 (count' [4 2 6 2]))))
+  (testing "list containing multiple data types"
+    (is (= 5 (count' [1 \a "string" [1 2] {:foo :bar}])))))
