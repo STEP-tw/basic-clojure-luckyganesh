@@ -127,4 +127,7 @@
   {:level        :easy
    :use          '[as-> reverse]
    :implemented? false}
-  [coll])
+  [coll]
+  (as-> coll coll
+        (map inc coll)
+        (concat (reverse coll) '(0) coll)))

@@ -95,3 +95,9 @@
     (is (= :empty-string (zero-aliases ""))))
   (testing "not empty"
     (is (= :not-zero (zero-aliases 1)))))
+
+(deftest zero-separated-palindrome-test
+  (testing "empty collection"
+    (is (= [0] (zero-separated-palindrome []))))
+  (testing "non-empty collection"
+    (is (= [4 3 2 0 2 3 4] (zero-separated-palindrome [1 2 3])))))
