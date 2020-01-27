@@ -45,3 +45,13 @@
     (is (nil? (duplicate-first []))))
   (testing "should return the list with duplicate-first when first is nil"
     (is (= [nil nil 1 2] (duplicate-first [nil 1 2])))))
+
+(deftest five-point-someone-test
+  (testing "should return :chetan-bhagat when y is 5"
+    (is (= :chetan-bhagat (five-point-someone 1 5))))
+  (testing "should return :chetan-bhagat when y is 5"
+    (is (= :satan-bhagat (five-point-someone 5 1))))
+  (testing "should return :chetan-bhagat when y is 5"
+    (is (= :greece (five-point-someone 20 3))))
+  (testing "should return :chetan-bhagat when y is 5"
+    (is (= :universe (five-point-someone 3 20)))))
