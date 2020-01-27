@@ -13,3 +13,15 @@
     (is (= 3 (informative-divide 6 2))))
   (testing "zero denominator"
     (is (= :infinite (informative-divide 3 0)))))
+
+(deftest harishchandra-test
+  (testing "should return true when input is true"
+    (is (harishchandra true)))
+  (testing "should return nil when input is false"
+    (is (= nil (harishchandra false))))
+  (testing "should return nil when input is nil"
+    (is (= nil (harishchandra nil))))
+  (testing "should return the value when it is not falsy value"
+    (is (= 2 (harishchandra 2))))
+  (testing "should return 0 when input is 0"
+    (is (zero? (harishchandra 0)))))
