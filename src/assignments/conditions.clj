@@ -64,7 +64,7 @@
   {:level        :medium
    :use          '[condp filter]
    :alternates   '[if cond]
-   :implemented? false}
+   :implemented? true}
   [coll] (condp u/is-single-occurrence? coll
            [1 3] :wonder-woman
            [:a :b :c] :durga
@@ -78,8 +78,10 @@
   (repeat-and-truncate (range 4) true true 6) => '(0 1 2 3 0 1)"
   {:level        :medium
    :use          '[cond->> concat take]
-   :implemented? false}
-  [coll rep? truncate? n])
+   :implemented? true}
+  [coll rep? truncate? n] (cond->> coll
+                                   rep? (concat coll)
+                                   truncate? (take n)))
 
 (defn order-in-words
   "Given x, y and z, returns a vector consisting of

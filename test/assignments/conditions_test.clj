@@ -63,3 +63,13 @@
     (is (= :tuntun (conditions-apply [7 8 9]))))
   (testing "collection has two occurrence of 1 and 3 in that order"
     (is (= :tuntun (conditions-apply [0 1 3 1 3])))))
+
+(deftest repeat-and-truncate-test
+  (testing "no repeat and no truncate"
+    (is (= [2 3] (repeat-and-truncate [2 3] false false 4))))
+  (testing "only repeat"
+    (is (= [2 3 2 3] (repeat-and-truncate [2 3] true false 4))))
+  (testing "only truncate"
+    (is (= [1 2 3] (repeat-and-truncate [1 2 3 4 5] false true 3))))
+  (testing "repeat and truncate together"
+    (is (= [1 2 3 1 2] (repeat-and-truncate [1 2 3] true true 5)))))
