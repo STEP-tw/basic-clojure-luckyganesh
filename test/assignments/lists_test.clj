@@ -61,3 +61,9 @@
     (is (true? (some?' odd? [1 2 3]))))
   (testing "even? with no even values in list"
     (is (false? (some?' even? [1 3 5])))))
+
+(deftest ascending?-test
+  (testing "with correct sequence"
+    (is (true? (ascending? [1 2 3]))))
+  (testing "with wrong sequence"
+    (is (false? (ascending? [1 4 3])))))
