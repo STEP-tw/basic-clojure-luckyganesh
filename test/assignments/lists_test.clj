@@ -67,3 +67,9 @@
     (is (true? (ascending? [1 2 3]))))
   (testing "with wrong sequence"
     (is (false? (ascending? [1 4 3])))))
+
+(deftest transpose-test
+  (testing "with empty sequence"
+    (is (= [] (transpose [] []))))
+  (testing "with 2 rows"
+    (is (= [[1 4] [2 5] [3 6]] (transpose [1 2 3] [4 5 6])))))
