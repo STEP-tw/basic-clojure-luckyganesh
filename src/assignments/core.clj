@@ -83,6 +83,14 @@
         (l/reverse' [1 2 3])
         (l/reverse' {:one 1 :two 2})
         (l/reverse' [1 \a "string" [1 2] {:foo :bar}])
+        ;;
+        (l/every?' odd? [1 3 5])
+        (l/every?' zero? [0 0])
+        (l/every?' even? [1 2 4])
+        ;;
+        (l/some?' odd? [1 3 5])
+        (l/some?' zero? [0 0])
+        (l/some?' even? [1 3 5])
         )))
 
 (defn -main [& args]
