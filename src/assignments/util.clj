@@ -14,4 +14,13 @@
   (let [forms-with-println (mapcat insert-println-if-implemented forms)]
     (list* 'do forms-with-println)))
 
-(defn is-in-order? [y x] (= (distinct (filter (into #{} y) x)) y))
+(defn single-count-&-is-in-order [x y] (and (= 1 (count y)) (= x (first y))))
+
+(defn is-single-occurrence? [x y]
+             (->> y
+                  (filter (into #{} x))
+                  (partition-by identity)
+                  (map first)
+                  (partition (count x))
+                  (single-count-&-is-in-order x)
+                  ))

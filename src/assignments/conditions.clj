@@ -65,7 +65,7 @@
    :use          '[condp filter]
    :alternates   '[if cond]
    :implemented? false}
-  [coll] (condp u/is-in-order? coll
+  [coll] (condp u/is-single-occurrence? coll
            [1 3] :wonder-woman
            [:a :b :c] :durga
            [[2 3] [4 5]] :cleopatra
