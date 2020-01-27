@@ -13,3 +13,5 @@
 (defmacro print-and-do [& forms]
   (let [forms-with-println (mapcat insert-println-if-implemented forms)]
     (list* 'do forms-with-println)))
+
+(defn is-in-order? [y x] (= (distinct (filter (into #{} y) x)) y))

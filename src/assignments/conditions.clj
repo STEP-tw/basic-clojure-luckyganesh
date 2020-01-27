@@ -1,4 +1,6 @@
-(ns assignments.conditions)
+(ns assignments.conditions
+  (:require
+    [assignments.util :as u]))
 
 (defn safe-divide
   "Returns the result of x/y unless y is 0. Returns nil when y is 0"
@@ -63,7 +65,11 @@
    :use          '[condp filter]
    :alternates   '[if cond]
    :implemented? false}
-  [coll])
+  [coll] (condp u/is-in-order? coll
+           [1 3] :wonder-woman
+           [:a :b :c] :durga
+           [[2 3] [4 5]] :cleopatra
+           :tuntun))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate
@@ -106,7 +112,7 @@
   and prepend a 0 to the incremented list concatenated
   with the reverse of the incremented list
   [1 2 3] -> (4 3 2 0 2 3 4)"
-  {:level :easy
-   :use '[as-> reverse]
+  {:level        :easy
+   :use          '[as-> reverse]
    :implemented? false}
   [coll])

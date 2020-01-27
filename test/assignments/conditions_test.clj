@@ -55,3 +55,13 @@
     (is (= :greece (five-point-someone 20 3))))
   (testing "should return :chetan-bhagat when y is 5"
     (is (= :universe (five-point-someone 3 20)))))
+
+(deftest conditions-apply-test
+  (testing "should return :wonder-woman if collection has a single occurrence of 1 and 3 in that order"
+    (is (= :wonder-woman (conditions-apply [0 1 0 3]))))
+  (testing "should return :durga if collection has a single occurrence of :a :b and :c in that order"
+    (is (= :durga (conditions-apply [:a :b :e :c]))))
+  (testing "should return :cleopatra if collection has a single occurrence of [2 3] and [4 5] in that order"
+    (is (= :cleopatra (conditions-apply [[0 0] [2 3] [1 1] [4 5] [5 6]]))))
+  (testing "should return :tuntun if none of the conditions apply"
+    (is (= :tuntun (conditions-apply [7 8 9])))))
