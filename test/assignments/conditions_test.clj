@@ -37,3 +37,11 @@
     (is (= 2 (yudishtira 2))))
   (testing "should return 0 when input is 0"
     (is (zero? (yudishtira 0)))))
+
+(deftest duplicate-first-test
+  (testing "should return the list with duplicate-first"
+    (is (= [1 1 2 3] (duplicate-first [1 2 3]))))
+  (testing "should return nil when list is empty"
+    (is (nil? (duplicate-first []))))
+  (testing "should return the list with duplicate-first when first is nil"
+    (is (= [nil nil 1 2] (duplicate-first [nil 1 2])))))
