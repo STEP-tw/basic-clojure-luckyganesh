@@ -117,6 +117,8 @@
         (l/sum-of-adjacent-digits [0 1 3 0])
         ;;
         (l/muted-thirds [1 2 8 4 15 2 7])
+        ;;
+        (l/difference [1 2 3] [4 5 6])
         )))
 
 (defn -main [& args]

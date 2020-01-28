@@ -140,3 +140,11 @@
     (are [x y] (= x y)
                [1 2 0] (muted-thirds [1 2 3])
                [1 2 0 4 15 0 7] (muted-thirds [1 2 8 4 15 2 7]))))
+
+(deftest difference-test
+  (testing "with empty collection"
+    (is (= [] (difference [] []))))
+  (testing "with 2nd collection that are present is 1st collection"
+    (is (= [] (difference [1 2 3] [2 3]))))
+  (testing "with 2nd collection having elements after difference"
+    (is (= [4] (difference [1 2 3] [2 3 4])))))
