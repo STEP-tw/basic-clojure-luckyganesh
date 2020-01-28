@@ -121,3 +121,11 @@
     (is (true? (palindrome? "NaN"))))
   (testing "not a palindrome"
     (is (false? (palindrome? [1 2 3])))))
+
+(deftest sum-of-adjacent-digits-test
+  (testing "with empty collection and single collection"
+    (are [x y] (= x y)
+               [] (sum-of-adjacent-digits [])
+               [] (sum-of-adjacent-digits [1])))
+  (testing "with collection containing more than single element"
+    (is (= [1 4 3] (sum-of-adjacent-digits [0 1 3 0])))))

@@ -112,6 +112,9 @@
         ;;
         (l/palindrome? [1 2 1])
         (l/palindrome? [4 8 5])
+        ;;
+        (l/sum-of-adjacent-digits [1 2 3])
+        (l/sum-of-adjacent-digits [0 1 3 0])
         )))
 
 (defn -main [& args]
