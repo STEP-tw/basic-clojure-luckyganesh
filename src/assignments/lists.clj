@@ -213,8 +213,12 @@
   elements whose index is either divisible by three or five"
   {:level        :easy
    :use          '[keep-indexed when :optionally map-indexed filter]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll] (vec (keep-indexed #(when (and (or                 ;%1 - index, %2 - data-item
+                                          (zero? (mod %1 3))
+                                          (zero? (mod %1 5)))
+                                        (not (zero? %1))) %2)
+                            coll)))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the

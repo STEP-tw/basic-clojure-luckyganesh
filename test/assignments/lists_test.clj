@@ -89,3 +89,11 @@
   (testing "with string sequence"
     (is (= ["I" "I" "love" "love" "clojure" "clojure"]
            (double-up ["I" "love" "clojure"])))))
+
+(deftest third-or-fifth-test
+  (testing "with single item"
+    (is (= [] (third-or-fifth ["I"]))))
+  (testing "with collection containing 4 items - last index is 3"
+    (is (= [4] (third-or-fifth [1 2 3 4]))))
+  (testing "with collection containing 6 items - last index is 5"
+    (is (= [4 6] (third-or-fifth [1 2 3 4 5 6])))))

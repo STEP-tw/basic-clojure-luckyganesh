@@ -101,6 +101,9 @@
         ;;
         (l/double-up [1 2 3])
         (l/double-up ["I" "love" "clojure"])
+        ;;
+        (l/third-or-fifth [1 2 3 "I" 4 "love" "clojure"])
+        ;;
         )))
 
 (defn -main [& args]
