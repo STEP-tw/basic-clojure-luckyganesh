@@ -97,7 +97,10 @@
         ;;
         (l/transpose [1 2 3] [4 5 6])
         ;;
-        (l/cross-product [1 2 3] [4 3 5])
+        (l/cross-product [1 2 3] [4 3 5])                   ;
+        ;;
+        (l/double-up [1 2 3])
+        (l/double-up ["I" "love" "clojure"])
         )))
 
 (defn -main [& args]

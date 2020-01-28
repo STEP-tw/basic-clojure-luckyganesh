@@ -80,3 +80,12 @@
   (testing "with 2 sequences"
     (is (= [[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]]
            (cross-product [1 2 3] [4 3 5])))))
+
+(deftest double-up-test
+  (testing "with empty sequence"
+    (is (= [] (double-up []))))
+  (testing "with integer sequence"
+    (is (= [1 1 2 2 3 3] (double-up [1 2 3]))))
+  (testing "with string sequence"
+    (is (= ["I" "I" "love" "love" "clojure" "clojure"]
+           (double-up ["I" "love" "clojure"])))))
