@@ -95,7 +95,7 @@
         (l/ascending? [1 2 3])
         (l/ascending? [1 4 3])
         ;;
-        (l/transpose [1 2 3] [4 5 6])
+        (l/transpose [[1 2 3] [4 5 6]])
         ;;
         (l/cross-product [1 2 3] [4 3 5])                   ;
         ;;

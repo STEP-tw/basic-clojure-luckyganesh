@@ -70,9 +70,9 @@
 
 (deftest transpose-test
   (testing "with empty sequence"
-    (is (= [] (transpose [] []))))
+    (is (= [] (transpose [[] []]))))
   (testing "with 2 rows"
-    (is (= [[1 4] [2 5] [3 6]] (transpose [1 2 3] [4 5 6])))))
+    (is (= [[1 4] [2 5] [3 6]] (transpose [[1 2 3] [4 5 6]])))))
 
 (deftest cross-product-test
   (testing "with empty sequence"
