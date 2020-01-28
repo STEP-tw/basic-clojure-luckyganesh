@@ -103,3 +103,11 @@
     (is (= [1] (sqr-of-the-first [1]))))
   (testing "with collection containing 4 items"
     (is (= [4 4 4 4] (sqr-of-the-first [2 3 4 5])))))
+
+(deftest index-of-test
+  (testing "with empty collection"
+    (is (= -1 (index-of [] "something"))))
+  (testing "with element present in the collection"
+    (is (= 4 (index-of [0 1 2 5 3] 3))))
+  (testing "with element not present in the collection"
+    (is (= -1 (index-of [1 2 3] 0)))))

@@ -105,6 +105,10 @@
         (l/third-or-fifth [1 2 3 "I" 4 "love" "clojure"])
         ;;
         (l/sqr-of-the-first [1 2 3])
+        ;;
+        (l/index-of [1 2 3] 1)
+        (l/index-of [1 2 3] "not there")
+        (l/index-of [1 2 3] 2)
         )))
 
 (defn -main [& args]
