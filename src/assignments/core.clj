@@ -109,6 +109,9 @@
         (l/index-of [1 2 3] 1)
         (l/index-of [1 2 3] "not there")
         (l/index-of [1 2 3] 2)
+        ;;
+        (l/palindrome? [1 2 1])
+        (l/palindrome? [4 8 5])
         )))
 
 (defn -main [& args]
