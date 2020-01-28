@@ -104,6 +104,7 @@
         ;;
         (l/third-or-fifth [1 2 3 "I" 4 "love" "clojure"])
         ;;
+        (l/sqr-of-the-first [1 2 3])
         )))
 
 (defn -main [& args]
