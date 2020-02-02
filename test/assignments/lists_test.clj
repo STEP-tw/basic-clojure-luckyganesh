@@ -148,3 +148,14 @@
     (is (= [] (difference [1 2 3] [2 3]))))
   (testing "with 2nd collection having elements after difference"
     (is (= [4] (difference [1 2 3] [2 3 4])))))
+
+(deftest points-around-origin-test
+  (testing "points around origin"
+    (is (= '([-1 -1]
+            [-1 0]
+            [-1 1]
+            [0 -1]
+            [0 1]
+            [1 -1]
+            [1 0]
+            [1 1]) points-around-origin))))
