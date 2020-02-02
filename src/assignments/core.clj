@@ -119,6 +119,9 @@
         (l/muted-thirds [1 2 8 4 15 2 7])
         ;;
         (l/difference [1 2 3] [4 5 6])
+        ;;
+        (l/russian-dolls [1 4 3] 1)
+        (l/russian-dolls ["I" "hate" "you"] 3)
         )))
 
 (defn -main [& args]

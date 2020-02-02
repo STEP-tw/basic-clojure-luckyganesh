@@ -159,3 +159,9 @@
             [1 -1]
             [1 0]
             [1 1]) points-around-origin))))
+
+(deftest russian-dolls-test
+  (testing "single nesting gives result as same input"
+    (is (= [1 2 3] (russian-dolls [1 2 3] 1))))
+  (testing "triple nesting"
+    (is (= [[[1]] [[2]] [[3]]] (russian-dolls [1 2 3] 3)))))
