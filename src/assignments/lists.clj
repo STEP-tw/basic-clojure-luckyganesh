@@ -304,4 +304,16 @@
   "Given a 9 by 9 sudoku grid, validate it."
   {:level        :hard
    :implemented? false}
-  [grid])
+  [grid]
+  (letfn [(validate-row [row]
+             (= #{1 2 3 4 5 6 7 8 9} (set row)))]
+     (and
+       (every? validate-row grid)
+       (every? validate-row (transpose grid))
+       (every? validate-row (->> grid
+                                  (map (partial partition 3))
+                                  (partition 3)
+                                  (map (partial apply map list))
+                                  (mapcat identity)
+                                  (map flatten)
+                                  (mapv vec))))))
