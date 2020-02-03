@@ -108,6 +108,22 @@
    :implemented? true}
   [coll] (every?' (partial apply <=) (partition 2 1 coll)))
 
+(defn index-of
+  "index-of takes a sequence and an element and finds the index
+  of the element in the given sequence. Returns -1 if element
+  is not found"
+  {:level        :easy
+   :use          '[loop recur rest]
+   :dont-use     '[.indexOf memfn]
+   :implemented? true}
+  [coll n] (loop [coll coll
+                  index 0]
+             (if-not (empty? coll)
+               (if (= n (first coll))
+                 index
+                 (recur (rest coll) (inc index)))
+               -1)))
+
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns
   a collection with duplicates eliminated. Might have to implement another
@@ -115,8 +131,14 @@
   {:level        :medium
    :use          '[lazy-seq set conj let :optionally letfn]
    :dont-use     '[loop recur distinct]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (letfn [(distinct-try [previous-set coll]
+            (lazy-seq (when-let [x (first coll)]
+                        (if (nil? (previous-set x))
+                          (cons x (distinct-try (conj previous-set x) (rest coll)))
+                          (distinct-try previous-set (rest coll))))))]
+    (distinct-try #{} coll)))
 
 (defn dedupe'
   "Implement your own lazy sequence version of dedupe which returns
@@ -283,22 +305,6 @@
                (recur (rest (butlast coll)))
                false)
              true)))
-
-(defn index-of
-  "index-of takes a sequence and an element and finds the index
-  of the element in the given sequence. Returns -1 if element
-  is not found"
-  {:level        :easy
-   :use          '[loop recur rest]
-   :dont-use     '[.indexOf memfn]
-   :implemented? false}
-  [coll n] (loop [coll coll
-                  index 0]
-             (if-not (empty? coll)
-               (if (= n (first coll))
-                 index
-                 (recur (rest coll) (inc index)))
-               -1)))
 
 (defn validate-sudoku-grid
   "Given a 9 by 9 sudoku grid, validate it."

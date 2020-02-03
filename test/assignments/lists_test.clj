@@ -189,3 +189,9 @@
                    [5 1 9 3 2 6 8 7 4]
                    [2 4 8 9 5 7 1 3 6]
                    [7 6 3 4 1 8 2 5 9]])))))
+
+(deftest distinct-test
+  (testing "with no duplicates"
+    (is (= [1 2 3] (distinct' [1 2 3]))))
+  (testing "with duplicates"
+    (is (= [1 2 3] (distinct' [1 1 2 3 2])))))
