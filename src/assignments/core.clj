@@ -136,6 +136,9 @@
         ;;
         (l/distinct' [1 2 3])
         (l/distinct' [1 2 3 2 3 4])
+        ;;
+        (l/dedupe' [1 2 3])
+        (l/dedupe' [1 1 2 3 3])
         )))
 
 (defn -main [& args]

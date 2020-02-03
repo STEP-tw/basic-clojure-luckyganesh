@@ -195,3 +195,11 @@
     (is (= [1 2 3] (distinct' [1 2 3]))))
   (testing "with duplicates"
     (is (= [1 2 3] (distinct' [1 1 2 3 2])))))
+
+(deftest dedupe-test
+  (testing "with no duplicates"
+    (is (= [1 2 3] (dedupe' [1 2 3]))))
+  (testing "with duplicates but not consecutive"
+    (is (= [1 2 3 1] (dedupe' [1 2 3 1]))))
+  (testing "with consecutive duplicates"
+    (is (= [1 2 3] (dedupe' [1 1 2 3 3])))))
