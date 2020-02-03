@@ -139,6 +139,10 @@
         ;;
         (l/dedupe' [1 2 3])
         (l/dedupe' [1 1 2 3 3])
+        ;;
+        (l/union [1 2 3] [4 5 6])
+        (l/union [1 2 3] [3 4 5])
+        (l/union [1 2 3 1] [4 5 6 3 2 4])
         )))
 
 (defn -main [& args]

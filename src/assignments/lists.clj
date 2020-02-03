@@ -147,7 +147,7 @@
   {:level        :medium
    :use          '[lazy-seq conj let :optionally letfn]
    :dont-use     '[loop recur dedupe]
-   :implemented? false}
+   :implemented? true}
   [coll]
   (letfn [(dedupe-try [previous-num coll]
             (lazy-seq (when-let [x (first coll)]
@@ -205,7 +205,7 @@
   {:level        :easy
    :use          '[remove into set ->>]
    :implemented? false}
-  [coll1 coll2])
+  [coll1 coll2] (into coll1 (remove (set coll1) coll2)))
 
 ;; points-around-origin is a def not a defn
 (def

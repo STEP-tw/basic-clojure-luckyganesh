@@ -203,3 +203,11 @@
     (is (= [1 2 3 1] (dedupe' [1 2 3 1]))))
   (testing "with consecutive duplicates"
     (is (= [1 2 3] (dedupe' [1 1 2 3 3])))))
+
+(deftest union-test
+  (testing "with no common elements"
+    (is (= [1 2 3 4 5 6] (union [1 2 3] [ 4 5 6]))))
+  (testing "with common elements but elements doesn't repeat"
+    (is (= [1 2 3 4 5] (union [1 2 3] [3 4 5]))))
+  (testing "with common element and elements repeat"
+    (is (= [1 2 3 1 4 5 6 4] (union [1 2 3 1] [4 5 6 3 2 4])))))
