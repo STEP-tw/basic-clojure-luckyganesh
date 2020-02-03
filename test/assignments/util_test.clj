@@ -10,4 +10,6 @@
   (testing "vectors are in order"
     (is (true? (is-single-occurrence? [[2 3] [4 5]] [[0 0] [2 3] [1 1] [4 5] [5 6]]))))
   (testing "vectors not in order"
-    (is (false? (is-single-occurrence? [[2 3] [4 5]] [[0 0] [1 1] [4 5] [2 3] [5 6]])))))
+    (is (false? (is-single-occurrence? [[2 3] [4 5]] [[0 0] [1 1] [4 5] [2 3] [5 6]]))))
+  (testing "multiple occurrences"
+    (is (false? (is-single-occurrence? [1 3] [1 2 3 1])))))
