@@ -211,3 +211,9 @@
     (is (= [1 2 3 4 5] (union [1 2 3] [3 4 5]))))
   (testing "with common element and elements repeat"
     (is (= [1 2 3 1 4 5 6 4] (union [1 2 3 1] [4 5 6 3 2 4])))))
+
+(deftest split-comb-test
+  (testing "with even sequence"
+    (is (= [1 3 2 4] (split-comb [1 2 3 4]))))
+  (testing "with odd sequence"
+    (is (= [1 3 2 4 5] (split-comb [1 2 3 4 5])))))

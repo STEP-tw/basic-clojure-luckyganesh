@@ -143,6 +143,9 @@
         (l/union [1 2 3] [4 5 6])
         (l/union [1 2 3] [3 4 5])
         (l/union [1 2 3 1] [4 5 6 3 2 4])
+        ;;
+        (l/split-comb [1 2 3 4])
+        (l/split-comb [1 2 3 4 5])
         )))
 
 (defn -main [& args]

@@ -204,7 +204,7 @@
   if elements repeat."
   {:level        :easy
    :use          '[remove into set ->>]
-   :implemented? false}
+   :implemented? true}
   [coll1 coll2] (into coll1 (remove (set coll1) coll2)))
 
 ;; points-around-origin is a def not a defn
@@ -286,8 +286,13 @@
   {:level        :easy
    :use          '[interleave split-at if rem concat take-last]
    :dont-use     '[loop recur map-indexed take drop]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll] (let [size (count coll)
+               interleaved-part (->> coll
+                                     (split-at (quot size 2))
+                                     (apply interleave))]
+           (if (zero? (rem size 2)) interleaved-part
+                                    (concat interleaved-part (take-last 1 coll)))))
 
 (defn muted-thirds
   "Given a sequence of numbers, make every third element
