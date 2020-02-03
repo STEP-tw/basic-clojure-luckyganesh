@@ -217,3 +217,9 @@
     (is (= [1 3 2 4] (split-comb [1 2 3 4]))))
   (testing "with odd sequence"
     (is (= [1 3 2 4 5] (split-comb [1 2 3 4 5])))))
+
+(deftest max-three-digit-sequence-test
+  (testing "with less than three numbers"
+    (is (= [1 2] (max-three-digit-sequence [1 2]))))
+  (testing "with more than three numbers"
+    (is (= [2 -1 2] (max-three-digit-sequence [1 2 -1 2 0])))))

@@ -146,6 +146,9 @@
         ;;
         (l/split-comb [1 2 3 4])
         (l/split-comb [1 2 3 4 5])
+        ;;
+        (l/max-three-digit-sequence [1 3])
+        (l/max-three-digit-sequence [1 2 -1 2 0])
         )))
 
 (defn -main [& args]
