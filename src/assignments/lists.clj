@@ -10,17 +10,17 @@
    :implemented? true}
   [f & colls]
   (if (= 1 (count colls))
-      (loop [coll (first colls)
-             result []]
-        (if-not (empty? coll)
-          (recur (rest coll)
-                 (conj result (f (first coll))))
-          result))
-      (loop [colls colls result []]
-        (if-not (some empty? colls)
-          (recur (map' rest colls)
-                 (conj result (apply f (map' first colls))))
-          result))))
+    (loop [coll   (first colls)
+           result []]
+      (if-not (empty? coll)
+              (recur (rest coll)
+                     (conj result (f (first coll))))
+              result))
+    (loop [colls colls result []]
+      (if-not (some empty? colls)
+              (recur (map' rest colls)
+                     (conj result (apply f (map' first colls))))
+              result))))
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
@@ -33,12 +33,12 @@
   [pred coll]
   (loop [coll coll result []]
     (if-not (empty? coll)
-      (let [first-element (first coll)]
-        (recur (rest coll)
-               (if (pred first-element)
-                   (conj result first-element)
-                   result)))
-      result)))
+            (let [first-element (first coll)]
+              (recur (rest coll)
+                     (if (pred first-element)
+                       (conj result first-element)
+                       result)))
+            result)))
 
 (defn reduce'
   "Implement your own multi-arity version of reduce
@@ -52,10 +52,10 @@
    (reduce' f (first coll) (rest coll)))
   ([f init coll]
    (loop [result init
-          coll coll]
+          coll   coll]
      (if-not (empty? coll)
-       (recur (f result (first coll)) (rest coll))
-       result))))
+             (recur (f result (first coll)) (rest coll))
+             result))))
 
 (defn count'
   "Implement your own version of count that counts the
@@ -67,8 +67,8 @@
   ([coll]
    (loop [coll coll result 0]
      (if-not (empty? coll)
-       (recur (rest coll) (inc result))
-       result))))
+             (recur (rest coll) (inc result))
+             result))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
@@ -90,8 +90,8 @@
   ([pred coll]
    (loop [coll coll result true]
      (if-not (empty? coll)
-       (recur (rest coll) (and result (pred (first coll))))
-       result))))
+             (recur (rest coll) (and result (pred (first coll))))
+             result))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
@@ -105,8 +105,8 @@
   ([pred coll]
    (loop [coll coll result false]
      (if-not (empty? coll)
-       (recur (rest coll) (or result (pred (first coll))))
-       result))))
+             (recur (rest coll) (or result (pred (first coll))))
+             result))))
 
 (defn ascending?
   "Verify if every element is greater than or equal to its predecessor"
@@ -126,13 +126,13 @@
    :dont-use     '[.indexOf memfn]
    :implemented? true}
   [coll n]
-  (loop [coll coll
+  (loop [coll  coll
          index 0]
     (if-not (empty? coll)
-      (if (= n (first coll))
-          index
-          (recur (rest coll) (inc index)))
-      -1)))
+            (if (= n (first coll))
+              index
+              (recur (rest coll) (inc index)))
+            -1)))
 
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns
@@ -146,8 +146,8 @@
   (letfn [(distinct-try [previous-set coll]
             (lazy-seq (when-let [x (first coll)]
                         (if (nil? (previous-set x))
-                            (cons x (distinct-try (conj previous-set x) (rest coll)))
-                            (distinct-try previous-set (rest coll))))))]
+                          (cons x (distinct-try (conj previous-set x) (rest coll)))
+                          (distinct-try previous-set (rest coll))))))]
     (distinct-try #{} coll)))
 
 (defn dedupe'
@@ -162,8 +162,8 @@
   (letfn [(dedupe-try [previous-num coll]
             (lazy-seq (when-let [x (first coll)]
                         (if (= previous-num x)
-                            (dedupe-try previous-num (rest coll))
-                            (cons x (dedupe-try x (rest coll)))))))]
+                          (dedupe-try previous-num (rest coll))
+                          (cons x (dedupe-try x (rest coll)))))))]
     (dedupe-try nil coll)))
 
 (defn sum-of-adjacent-digits
@@ -187,9 +187,9 @@
    :implemented? true}
   [coll]
   (if (<= (count' coll) 3)
-      coll
-      (apply max-key (partial apply +)
-             (map vector coll (next coll) (nnext coll)))))
+    coll
+    (apply max-key (partial apply +)
+           (map' vector coll (next coll) (nnext coll)))))
 
 ;; transpose is a def. Not a defn.
 (def
@@ -201,7 +201,7 @@
   [[a b] [c d]] => [[a c] [b d]].
   Note this is a def. Not a defn.
   Return a vector of vectors, not list of vectors or vectors of lists"
-  (comp (partial into []) (partial apply map vector)))
+  (comp (partial into []) (partial apply map' vector)))
 
 (defn difference
   "Given two collections, returns only the elements that are present
@@ -269,10 +269,9 @@
    :use          '[keep-indexed when :optionally map-indexed filter]
    :implemented? true}
   [coll]
-  (vec (keep-indexed #(when (and (or                        ;%1 - index, %2 - data-item
-                                   (zero? (mod %1 3))
-                                   (zero? (mod %1 5)))
-                                 (not (zero? %1))) %2)
+  (vec (keep-indexed #(when (or                             ;%1 - index, %2 - data-item
+                              (zero? (mod %1 3))
+                              (zero? (mod %1 5))) %2)
                      coll)))
 
 (defn sqr-of-the-first
@@ -285,7 +284,7 @@
    :implemented? true}
   [coll]
   (let [number (first coll)]
-    (map (constantly (* number number)) coll)))
+    (map' (constantly (* number number)) coll)))
 
 (defn russian-dolls
   "Given a collection and a number, wrap each element in a nested vector
@@ -312,12 +311,12 @@
    :dont-use     '[loop recur map-indexed take drop]
    :implemented? true}
   [coll]
-  (let [size (count coll)
+  (let [size             (count coll)
         interleaved-part (->> coll
                               (split-at (quot size 2))
                               (apply interleave))]
     (if (zero? (rem size 2)) interleaved-part
-        (concat interleaved-part (take-last 1 coll)))))
+      (concat interleaved-part (take-last 1 coll)))))
 
 (defn muted-thirds
   "Given a sequence of numbers, make every third element
@@ -328,7 +327,7 @@
    :dont-use     '[loop recur map-indexed take take-nth]
    :implemented? true}
   [coll]
-  (map * coll (cycle [1 1 0])))
+  (map' * coll (cycle [1 1 0])))
 
 (defn palindrome?
   "Implement a recursive palindrome check of any given sequence"
@@ -339,10 +338,10 @@
   [coll]
   (loop [coll coll]
     (if-not (empty? coll)
-      (if (= (first coll) (last coll))
-          (recur (rest (butlast coll)))
-          false)
-      true)))
+            (if (= (first coll) (last coll))
+              (recur (rest (butlast coll)))
+              false)
+            true)))
 
 (defn validate-sudoku-grid
   "Given a 9 by 9 sudoku grid, validate it."
@@ -355,9 +354,9 @@
              (concat grid
                      (transpose grid)
                      (->> grid
-                          (map (partial partition 3))
+                          (map' (partial partition 3))
                           (partition 3)
-                          (map (partial apply map list))
-                          (mapcat identity)
-                          (map flatten)
+                          (map' (partial apply map list))
+                          (apply concat)
+                          (map' flatten)
                           (mapv vec))))))
