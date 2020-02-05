@@ -9,16 +9,18 @@
    :dont-use     '[map]
    :implemented? true}
   [f & colls]
-  (if (= 1 (count colls)) (loop [coll (first colls) result []]
-                            (if-not (empty? coll)
-                              (recur (rest coll)
-                                     (conj result (f (first coll))))
-                              result))
-                          (loop [colls colls result []]
-                            (if-not (some empty? colls)
-                              (recur (map' rest colls)
-                                     (conj result (apply f (map' first colls))))
-                              result))))
+  (if (= 1 (count colls))
+      (loop [coll (first colls)
+             result []]
+        (if-not (empty? coll)
+          (recur (rest coll)
+                 (conj result (f (first coll))))
+          result))
+      (loop [colls colls result []]
+        (if-not (some empty? colls)
+          (recur (map' rest colls)
+                 (conj result (apply f (map' first colls))))
+          result))))
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
@@ -34,8 +36,8 @@
       (let [first-element (first coll)]
         (recur (rest coll)
                (if (pred first-element)
-                 (conj result first-element)
-                 result)))
+                   (conj result first-element)
+                   result)))
       result)))
 
 (defn reduce'
@@ -46,12 +48,14 @@
    :use          '[loop recur]
    :dont-use     '[reduce]
    :implemented? true}
-  ([f coll] (reduce' f (first coll) (rest coll)))
-  ([f init coll] (loop [result init
-                        coll coll]
-                   (if-not (empty? coll)
-                     (recur (f result (first coll)) (rest coll))
-                     result))))
+  ([f coll]
+   (reduce' f (first coll) (rest coll)))
+  ([f init coll]
+   (loop [result init
+          coll coll]
+     (if-not (empty? coll)
+       (recur (f result (first coll)) (rest coll))
+       result))))
 
 (defn count'
   "Implement your own version of count that counts the
@@ -60,10 +64,11 @@
    :use          '[loop recur]
    :dont-use     '[count]
    :implemented? true}
-  ([coll] (loop [coll coll result 0]
-            (if-not (empty? coll)
-              (recur (rest coll) (inc result))
-              result))))
+  ([coll]
+   (loop [coll coll result 0]
+     (if-not (empty? coll)
+       (recur (rest coll) (inc result))
+       result))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
@@ -72,7 +77,8 @@
    :use          '[reduce conj seqable? when]
    :dont-use     '[reverse]
    :implemented? true}
-  ([coll] (when (seqable? coll) (reduce' conj '() coll))))
+  ([coll]
+   (when (seqable? coll) (reduce' conj '() coll))))
 
 (defn every?'
   "Implement your own version of every? that checks if every
@@ -81,10 +87,11 @@
    :use          '[loop recur and]
    :dont-use     '[every?]
    :implemented? true}
-  ([pred coll] (loop [coll coll result true]
-                 (if-not (empty? coll)
-                   (recur (rest coll) (and result (pred (first coll))))
-                   result))))
+  ([pred coll]
+   (loop [coll coll result true]
+     (if-not (empty? coll)
+       (recur (rest coll) (and result (pred (first coll))))
+       result))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
@@ -95,10 +102,11 @@
    :use          '[loop recur or]
    :dont-use     '[some]
    :implemented? true}
-  ([pred coll] (loop [coll coll result false]
-                 (if-not (empty? coll)
-                   (recur (rest coll) (or result (pred (first coll))))
-                   result))))
+  ([pred coll]
+   (loop [coll coll result false]
+     (if-not (empty? coll)
+       (recur (rest coll) (or result (pred (first coll))))
+       result))))
 
 (defn ascending?
   "Verify if every element is greater than or equal to its predecessor"
@@ -106,7 +114,8 @@
    :use          '[partition every? partial apply <=]
    :dont-use     '[loop recur]
    :implemented? true}
-  [coll] (every?' (partial apply <=) (partition 2 1 coll)))
+  [coll]
+  (every?' (partial apply <=) (partition 2 1 coll)))
 
 (defn index-of
   "index-of takes a sequence and an element and finds the index
@@ -116,13 +125,14 @@
    :use          '[loop recur rest]
    :dont-use     '[.indexOf memfn]
    :implemented? true}
-  [coll n] (loop [coll coll
-                  index 0]
-             (if-not (empty? coll)
-               (if (= n (first coll))
-                 index
-                 (recur (rest coll) (inc index)))
-               -1)))
+  [coll n]
+  (loop [coll coll
+         index 0]
+    (if-not (empty? coll)
+      (if (= n (first coll))
+          index
+          (recur (rest coll) (inc index)))
+      -1)))
 
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns
@@ -136,8 +146,8 @@
   (letfn [(distinct-try [previous-set coll]
             (lazy-seq (when-let [x (first coll)]
                         (if (nil? (previous-set x))
-                          (cons x (distinct-try (conj previous-set x) (rest coll)))
-                          (distinct-try previous-set (rest coll))))))]
+                            (cons x (distinct-try (conj previous-set x) (rest coll)))
+                            (distinct-try previous-set (rest coll))))))]
     (distinct-try #{} coll)))
 
 (defn dedupe'
@@ -152,8 +162,8 @@
   (letfn [(dedupe-try [previous-num coll]
             (lazy-seq (when-let [x (first coll)]
                         (if (= previous-num x)
-                          (dedupe-try previous-num (rest coll))
-                          (cons x (dedupe-try x (rest coll)))))))]
+                            (dedupe-try previous-num (rest coll))
+                            (cons x (dedupe-try x (rest coll)))))))]
     (dedupe-try nil coll)))
 
 (defn sum-of-adjacent-digits
@@ -163,7 +173,8 @@
    :use          '[map + rest]
    :dont-use     '[loop recur partition]
    :implemented? true}
-  [coll] (map' + coll (rest coll)))
+  [coll]
+  (map' + coll (rest coll)))
 
 (defn max-three-digit-sequence
   "Given a collection of numbers, find a three digit sequence that
@@ -176,9 +187,9 @@
    :implemented? true}
   [coll]
   (if (<= (count' coll) 3)
-    coll
-    (apply max-key (partial apply +)
-           (map vector coll (next coll) (nnext coll)))))
+      coll
+      (apply max-key (partial apply +)
+             (map vector coll (next coll) (nnext coll)))))
 
 ;; transpose is a def. Not a defn.
 (def
@@ -199,7 +210,8 @@
    :use          '[remove set]
    :dont-use     '[loop recur if]
    :implemented? true}
-  [coll1 coll2] (remove (set coll1) (set coll2)))
+  [coll1 coll2]
+  (remove (set coll1) (set coll2)))
 
 (defn union
   "Given two collections, returns a new collection with elements from the second
@@ -209,7 +221,8 @@
   {:level        :easy
    :use          '[remove into set ->>]
    :implemented? true}
-  [coll1 coll2] (into coll1 (remove (set coll1) coll2)))
+  [coll1 coll2]
+  (into coll1 (remove (set coll1) coll2)))
 
 ;; points-around-origin is a def not a defn
 (def
@@ -234,7 +247,11 @@
   {:level        :easy
    :use          '[for]
    :implemented? true}
-  [seq1 seq2] (vec (for [x seq1 y seq2 :while (not= x y)] [x y])))
+  [seq1 seq2]
+  (vec (for [x seq1
+             y seq2
+             :while (not= x y)]
+         [x y])))
 
 (defn double-up
   "Given a collection, return a new collection that contains
@@ -242,7 +259,8 @@
   {:level        :easy
    :use          '[mapcat partial repeat :optionally vector]
    :implemented? true}
-  [coll] (vec (mapcat (partial repeat 2) coll)))
+  [coll]
+  (vec (mapcat (partial repeat 2) coll)))
 
 (defn third-or-fifth
   "Given a collection return a new collection that contains
@@ -250,11 +268,12 @@
   {:level        :easy
    :use          '[keep-indexed when :optionally map-indexed filter]
    :implemented? true}
-  [coll] (vec (keep-indexed #(when (and (or                 ;%1 - index, %2 - data-item
-                                          (zero? (mod %1 3))
-                                          (zero? (mod %1 5)))
-                                        (not (zero? %1))) %2)
-                            coll)))
+  [coll]
+  (vec (keep-indexed #(when (and (or                        ;%1 - index, %2 - data-item
+                                   (zero? (mod %1 3))
+                                   (zero? (mod %1 5)))
+                                 (not (zero? %1))) %2)
+                     coll)))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the
@@ -264,8 +283,9 @@
   {:level        :easy
    :use          '[map constantly let]
    :implemented? true}
-  [coll] (let [number (first coll)]
-           (map (constantly (* number number)) coll)))
+  [coll]
+  (let [number (first coll)]
+    (map (constantly (* number number)) coll)))
 
 (defn russian-dolls
   "Given a collection and a number, wrap each element in a nested vector
@@ -291,12 +311,13 @@
    :use          '[interleave split-at if rem concat take-last]
    :dont-use     '[loop recur map-indexed take drop]
    :implemented? true}
-  [coll] (let [size (count coll)
-               interleaved-part (->> coll
-                                     (split-at (quot size 2))
-                                     (apply interleave))]
-           (if (zero? (rem size 2)) interleaved-part
-                                    (concat interleaved-part (take-last 1 coll)))))
+  [coll]
+  (let [size (count coll)
+        interleaved-part (->> coll
+                              (split-at (quot size 2))
+                              (apply interleave))]
+    (if (zero? (rem size 2)) interleaved-part
+        (concat interleaved-part (take-last 1 coll)))))
 
 (defn muted-thirds
   "Given a sequence of numbers, make every third element
@@ -306,7 +327,8 @@
    :use          '[map cycle]
    :dont-use     '[loop recur map-indexed take take-nth]
    :implemented? true}
-  [coll] (map * coll (cycle [1 1 0])))
+  [coll]
+  (map * coll (cycle [1 1 0])))
 
 (defn palindrome?
   "Implement a recursive palindrome check of any given sequence"
@@ -314,12 +336,13 @@
    :use          '[empty? loop recur butlast rest]
    :dont-use     '[reverse]
    :implemented? true}
-  [coll] (loop [coll coll]
-           (if-not (empty? coll)
-             (if (= (first coll) (last coll))
-               (recur (rest (butlast coll)))
-               false)
-             true)))
+  [coll]
+  (loop [coll coll]
+    (if-not (empty? coll)
+      (if (= (first coll) (last coll))
+          (recur (rest (butlast coll)))
+          false)
+      true)))
 
 (defn validate-sudoku-grid
   "Given a 9 by 9 sudoku grid, validate it."

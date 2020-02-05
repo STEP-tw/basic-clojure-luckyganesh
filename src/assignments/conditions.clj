@@ -7,14 +7,18 @@
   {:level        :easy
    :use          '[when-not zero?]
    :implemented? true}
-  [x y] (when-not (zero? y) (/ x y)))
+  [x y]
+  (when-not (zero? y) (/ x y)))
 
 (defn informative-divide
   "Returns the result of x/y unless y is 0. Returns :infinite when y is 0"
   {:level        :easy
    :use          '[if-not zero?]
    :implemented? true}
-  [x y] (if-not (zero? y) (/ x y) :infinite))
+  [x y]
+  (if-not (zero? y)
+          (/ x y)
+          :infinite))
 
 (defn harishchandra
   "Only returns truthy values as themselves.
@@ -22,7 +26,8 @@
   {:level        :easy
    :use          '[when-let]
    :implemented? true}
-  [x] (when-let [x x] x))
+  [x]
+  (when-let [x x] x))
 
 (defn yudishtira
   "Only returns truthy values as themselves.
@@ -30,7 +35,10 @@
   {:level        :easy
    :use          '[if-let]
    :implemented? true}
-  [x] (if-let [x x] x :ashwathama))
+  [x]
+  (if-let [x x]
+          x
+          :ashwathama))
 
 (defn duplicate-first
   "Returns coll with the first element duplicated.
@@ -39,7 +47,8 @@
    :use          '[when-first concat]
    :alternates   '[empty? seq? conj into]
    :implemented? true}
-  [coll] (when-first [x coll] (concat [x] coll)))
+  [coll]
+  (when-first [x coll] (concat [x] coll)))
 
 (defn five-point-someone
   "Returns :chetan-bhagat if y is 5.
@@ -49,11 +58,12 @@
   {:level        :easy
    :use          '[cond]
    :implemented? true}
-  [x y] (cond
-          (= y 5) :chetan-bhagat
-          (= x 5) :satan-bhagat
-          (> x y) :greece
-          :else :universe))
+  [x y]
+  (cond
+    (= y 5) :chetan-bhagat
+    (= x 5) :satan-bhagat
+    (> x y) :greece
+    :else :universe))
 
 (defn conditions-apply
   "Given a collection of any length, returns:
@@ -65,11 +75,12 @@
    :use          '[condp filter]
    :alternates   '[if cond]
    :implemented? true}
-  [coll] (condp u/is-single-occurrence? coll
-           [1 3] :wonder-woman
-           [:a :b :c] :durga
-           [[2 3] [4 5]] :cleopatra
-           :tuntun))
+  [coll]
+  (condp u/is-single-occurrence? coll
+    [1 3] :wonder-woman
+    [:a :b :c] :durga
+    [[2 3] [4 5]] :cleopatra
+    :tuntun))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate
@@ -79,9 +90,10 @@
   {:level        :medium
    :use          '[cond->> concat take]
    :implemented? true}
-  [coll rep? truncate? n] (cond->> coll
-                                   rep? (concat coll)
-                                   truncate? (take n)))
+  [coll rep? truncate? n]
+  (cond->> coll
+           rep? (concat coll)
+           truncate? (take n)))
 
 (defn order-in-words
   "Given x, y and z, returns a vector consisting of
