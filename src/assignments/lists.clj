@@ -177,10 +177,8 @@
   [coll]
   (if (<= (count' coll) 3)
     coll
-    (let [next-col (next coll)]
-      (->> (conj [[(first coll) (first next-col) (second next-col)]]
-                   (max-three-digit-sequence next-col))
-           (apply max-key (partial apply +))))))
+    (apply max-key (partial apply +)
+           (map vector coll (next coll) (nnext coll)))))
 
 ;; transpose is a def. Not a defn.
 (def
@@ -329,14 +327,14 @@
    :implemented? true}
   [grid]
   (letfn [(validate-row [row]
-             (= #{1 2 3 4 5 6 7 8 9} (set row)))]
+            (= #{1 2 3 4 5 6 7 8 9} (set row)))]
     (every?' validate-row
              (concat grid
-                   (transpose grid)
-                   (->> grid
-                        (map (partial partition 3))
-                        (partition 3)
-                        (map (partial apply map list))
-                        (mapcat identity)
-                        (map flatten)
-                        (mapv vec))))))
+                     (transpose grid)
+                     (->> grid
+                          (map (partial partition 3))
+                          (partition 3)
+                          (map (partial apply map list))
+                          (mapcat identity)
+                          (map flatten)
+                          (mapv vec))))))
