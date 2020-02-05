@@ -223,7 +223,7 @@
   Note this is a def, not a defn"
   (for [x (range -1 2)
         y (range -1 2)
-        :when (not (= x y 0))]
+        :when (not= x y 0)]
     [x y]))
 
 (defn cross-product
