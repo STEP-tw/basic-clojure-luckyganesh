@@ -128,11 +128,10 @@
   [coll n]
   (loop [coll  coll
          index 0]
-    (if-not (empty? coll)
-            (if (= n (first coll))
-              index
-              (recur (rest coll) (inc index)))
-            -1)))
+    (cond
+      (empty? coll) -1
+      (= n (first coll)) index
+      :else (recur (rest coll) (inc index)))))
 
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns
@@ -144,7 +143,7 @@
    :implemented? true}
   [coll]
   (letfn [(distinct-try [previous-set coll]
-            (lazy-seq (when-let [x (first coll)]
+            (lazy-seq (when-first [x coll]
                         (if (nil? (previous-set x))
                           (cons x (distinct-try (conj previous-set x) (rest coll)))
                           (distinct-try previous-set (rest coll))))))]
@@ -160,11 +159,11 @@
    :implemented? true}
   [coll]
   (letfn [(dedupe-try [previous-num coll]
-            (lazy-seq (when-let [x (first coll)]
+            (lazy-seq (when-first [x coll]
                         (if (= previous-num x)
                           (dedupe-try previous-num (rest coll))
                           (cons x (dedupe-try x (rest coll)))))))]
-    (dedupe-try nil coll)))
+    (dedupe-try Double/NaN coll)))
 
 (defn sum-of-adjacent-digits
   "Given a collection, returns a map of the sum of adjacent digits.
@@ -188,8 +187,10 @@
   [coll]
   (if (<= (count' coll) 3)
     coll
-    (apply max-key (partial apply +)
-           (map' vector coll (next coll) (nnext coll)))))
+    (->> coll
+         ((juxt identity next nnext))
+         (apply map' vector)
+         (apply max-key (partial apply +)))))
 
 ;; transpose is a def. Not a defn.
 (def
@@ -222,7 +223,9 @@
    :use          '[remove into set ->>]
    :implemented? true}
   [coll1 coll2]
-  (into coll1 (remove (set coll1) coll2)))
+  (->> coll2
+       (remove (set coll1))
+       (into coll1)))
 
 ;; points-around-origin is a def not a defn
 (def
@@ -269,10 +272,10 @@
    :use          '[keep-indexed when :optionally map-indexed filter]
    :implemented? true}
   [coll]
-  (vec (keep-indexed #(when (or                             ;%1 - index, %2 - data-item
-                              (zero? (mod %1 3))
-                              (zero? (mod %1 5))) %2)
-                     coll)))
+  (let [is-divisible-by? (comp zero? mod)]
+    (vec (keep-indexed #(when (or (is-divisible-by? %1 3)
+                                  (is-divisible-by? %1 5)) %2)
+                       coll))))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the
@@ -295,10 +298,10 @@
    :dont-use     '[for loop recur reduce]
    :implemented? true}
   [coll nesting-factor]
-  (mapv #(->> %
-              (iterate vector)
-              (take nesting-factor)
-              (last)) coll))
+  (->> coll
+       (iterate (partial mapv vector))
+       (take nesting-factor)
+       (last)))
 
 (defn split-comb
   "Given a collection, return a new sequence where the first
@@ -315,7 +318,7 @@
         interleaved-part (->> coll
                               (split-at (quot size 2))
                               (apply interleave))]
-    (if (zero? (rem size 2)) interleaved-part
+    (if (even? size) interleaved-part
       (concat interleaved-part (take-last 1 coll)))))
 
 (defn muted-thirds
@@ -356,7 +359,6 @@
                      (->> grid
                           (map' (partial partition 3))
                           (partition 3)
-                          (map' (partial apply map list))
-                          (apply concat)
-                          (map' flatten)
-                          (mapv vec))))))
+                          (map (partial apply interleave))
+                          (flatten)
+                          (partition 9))))))
